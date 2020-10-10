@@ -165,7 +165,7 @@ The generated XML document:
 
 For this, we have a simple application which creates a question and some answers for it. The generated XML document will contain the question along with the list of answers it got. 
 
-![Figure 1: Application class diagram.](/home/babycakes/Documents/Master/XML/JAXB/question_answer.png  "Figure 1: Application class diagram.")
+![Figure 1: Application class diagram.](/home/babycakes/Documents/Master/XML/JAXB/util/question_answer.png  "Figure 1: Application class diagram.")
 
 #### Question class
 
