@@ -14,7 +14,38 @@ Jakarta XML Binding (JAXB; formerly Java Architecture for XML Binding) is a soft
 
 #### How to install the plugin?
 
-I use Java directly from command line (Linux distro Fedora 32), so I simply installed the Maven plugin which supports JAXB:
+JAXB is supported only until **Java 8** (including), so in versions 9 and 10 it is deprecated, while in Java 11 JAXB is removed. So if you want to test it out, you can install Java 8 (both java and javac).
+
+- **java**
+```shell
+% sudo update-alternatives --config java                 
+[sudo] password for hostname: 
+
+There are 2 programs which provide 'java'.
+
+  Selection    Command
+-----------------------------------------------
+   1           java-11-openjdk.x86_64 (/usr/lib/jvm/java-11-openjdk-11.0.8.10-2.fc32.x86_64/bin/java)
+*+ 2           java-1.8.0-openjdk.x86_64 (/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.265.b01-1.fc32.x86_64/jre/bin/java)
+
+Enter to keep the current selection[+], or type selection number: 
+```
+
+- **javac**
+```shell
+[130] % sudo update-alternatives --config javac
+
+There are 2 programs which provide 'javac'.
+
+  Selection    Command
+-----------------------------------------------
+*+ 1           java-1.8.0-openjdk.x86_64 (/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.265.b01-1.fc32.x86_64/bin/javac)
+   2           java-11-openjdk.x86_64 (/usr/lib/jvm/java-11-openjdk-11.0.8.10-2.fc32.x86_64/bin/javac)
+
+Enter to keep the current selection[+], or type selection number: 
+```
+
+Also, since I use Java directly from command line (Linux distro Fedora 32), so I simply installed the Maven plugin which supports JAXB:
 
 ```shell
 sudo dnf install jaxb2-maven-plugin
