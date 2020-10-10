@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<question id="1">
+    <answers>
+        <answer>The Human.</answer>
+        <id>1</id>
+        <owner>Jaina Proudmore</owner>
+    </answers>
+    <answers>
+        <answer>The King.</answer>
+        <id>2</id>
+        <owner>Anduin Wrynn</owner>
+    </answers>
+    <answers>
+        <answer>The Dwarf.</answer>
+        <id>3</id>
+        <owner>Magni Bronzebeard</owner>
+    </answers>
+    <question>Who are you?</question>
+</question>
