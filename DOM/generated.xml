@@ -1,0 +1,20 @@
+<?xml version = "1.0"?>
+<class>
+   <videogame name = "Overwatch">
+      <type>shooter</type>
+      <year>2015</year>
+      <mode>multi-player</mode>
+   </videogame>
+
+   <videogame name = "Skyrim">
+      <type>rpg</type>
+      <year>2011</year>
+      <mode>single-player</mode>
+   </videogame>
+
+   <videogame name = "World of Warcraft">
+      <type>mmorpg</type>
+      <year>2004</year>
+      <mode>multi-layer</mode>
+   </videogame>
+</class>
