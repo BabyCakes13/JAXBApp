@@ -1,13 +1,19 @@
 # JAXB vs DOM
 
-## What is JAXB?
-## What is DOM?
-## JAXB cheatsheet
-## DOM cheatsheet
-## JAXB vs DOM
-## JAXB application
-## DOM application
- 
+In this example, we try to explain what JAXB and DOM are, what are the main differences between the two libraries, as well as exeplifying through some applications how each of this API's work.
+
+<p>&nbsp;</p>
+
+## Table of contents
+### What is JAXB?
+### JAXB features
+### JAXB application
+### What is DOM?
+### DOM features
+### DOM application
+### JAXB vs DOM
+
+ <p>&nbsp;</p>
  
 ## What is JAXB?
 Jakarta XML Binding (JAXB; formerly Java Architecture for XML Binding) is a software framework which provides a fast and convenient way for marshalling (writing) Java objects into XML and un-marshalling (reading) XML into Java objcts. A biding framework for mapping XML elements and attributes to Java fields and properties is being used through Java annotations. 
@@ -50,8 +56,9 @@ Also, since I use Java directly from command line (Linux distro Fedora 32), so I
 ```shell
 sudo dnf install jaxb2-maven-plugin
 ```
+<p>&nbsp;</p>
 
-### JAXB Annotations
+## JAXB features
 
 As we said before, JAXB annotations are paired with Java in order to support marshalling and un-marshalling of objects. The following example ilustrates how some annotations are used on Java objects in order to support this.
 
@@ -192,7 +199,9 @@ The generated XML document:
    </xs:complexType>
 ```
 
-### JAXB Mini-application
+<p>&nbsp;</p>
+
+## JAXB Mini-application
 
 For this, we have a simple application which creates a question and some answers for it. The generated XML document will contain the question along with the list of answers it got. 
 
