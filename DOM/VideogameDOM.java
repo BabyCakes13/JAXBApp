@@ -27,27 +27,18 @@ public class VideogameDOM {
 
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                Element eElement = (Element) nNode;
-               
+
                System.out.println("Name: "
                   + eElement.getAttribute("name"));
 
                System.out.println("Type: "
-                  + eElement
-                  .getElementsByTagName("type")
-                  .item(0)
-                  .getTextContent());
+                  + eElement.getElementsByTagName("type").item(0).getTextContent());
 
                System.out.println("Year: "
-                  + eElement
-                  .getElementsByTagName("year")
-                  .item(0)
-                  .getTextContent());
+                  + eElement.getElementsByTagName("year").item(0).getTextContent());
 
                System.out.println("Mode: "
-                  + eElement
-                  .getElementsByTagName("mode")
-                  .item(0)
-                  .getTextContent());
+                  + eElement.getElementsByTagName("mode").item(0).getTextContent());
             }
          }
       } catch (Exception e) {
