@@ -6,11 +6,11 @@ In this example, we try to explain what JAXB and DOM are, what are the main diff
 
 ## Table of contents
 ### What is JAXB?
-### JAXB features
-### JAXB application
+### JAXB Annotations
+### JAXB Application
 ### What is DOM?
-### DOM features
-### DOM application
+### DOM Interfaces and Methods
+### DOM Application
 ### JAXB vs DOM
 
  <p>&nbsp;</p>
@@ -205,7 +205,7 @@ The generated XML document:
 
 For this, we have a simple application which creates a question and some answers for it. The generated XML document will contain the question along with the list of answers it got. 
 
-![Figure 1: Application class diagram.](/home/babycakes/Documents/Master/XML/JAXB/util/question_answer.png  "Figure 1: Application class diagram.")
+![Figure 1: Application class diagram.](/home/babycakes/Documents/Master/XML/JAXBvsDOM/JAXB/util/question_answer.png  "Figure 1: Application class diagram.")
 
 #### Question class
 
@@ -408,3 +408,141 @@ After compiling and running the unmarshalling class above, we get the following 
 ```
 
 
+### What is DOM?
+
+**DOM (Document Object Model)** defines an **interface** that enables programs to access and update the style, structure, and contents of **XML documents**. DOM is an official recommendation of the World Wide Web Consortium (W3C). DOM is used when:
+
+- we want to know more about the structure of an XML document;
+- we need to move some parts of an XML document around;
+- we need to use the information provided by an XML document more than once, hence, store it;
+
+When an XML document is parsed with DOM, a **tree structure** that contains all of the elements of the document is generated. There are a variety of function provided by DOM which can be used to manipulate the harvested data.
+
+### DOM Interfaces
+
+The DOM defines several **Java interfaces**, such as:
+- **Node**
+- **Element**
+- **Attr**
+- **Text**
+- **Document**
+
+#### Node
+
+```java
+public interface Node
+```
+
+The Node interface is the primary datatype for the entire Document Object Model. It represents a single node in the document tree [[1]](#1).
+
+#### Element
+```java
+public interface Element
+extends Node
+```
+
+The Element interface represents an element in an HTML or XML document. Elements may have attributes associated with them; since the Element interface inherits from Node, the generic Node interface attribute attributes may be used to retrieve the set of all attributes for an element [[2]](#2).
+
+#### Attr 
+```java
+public interface Attr
+extends Node
+```
+
+The Attr interface represents an attribute in an Element object. Typically the allowable values for the attribute are defined in a schema associated with the document [[3]](#3). 
+
+#### Text
+```java
+public interface Text
+extends CharacterData
+```
+The Text interface inherits from CharacterData and represents the textual content (termed character data in XML) of an Element or Attr [[4]](#4). 
+
+#### Document
+```java
+public interface Document
+extends Node
+```
+
+The Document interface represents the entire HTML or XML document. Conceptually, it is the root of the document tree, and provides the primary access to the document's data.
+
+Since elements, text nodes, comments, processing instructions, etc. cannot exist outside the context of a Document, the Document interface also contains the factory methods needed to create these objects. The Node objects created have a ownerDocument attribute which associates them with the Document within whose context they were created  [[5]](#5). 
+
+### DOM Methods
+
+Besides the most common Java interfaces, here are some of the most commonly used methods:
+
+- **Document.getDocumentElement()**
+- **Node.getFirstChild()**
+- **Node.getLastChild()**
+- **Node.getNextSibling()**
+- **Node.getPreviousSibling()**
+- **Node.getAttribute(attrName)**
+
+These and other useful methods can be found at the following [link](https://docs.oracle.com/javase/7/docs/api/index.html).
+
+#### Document.getDocumentElement()
+
+```java
+Element getDocumentElement()
+```
+
+This is a convenience attribute that allows direct access to the child node that is the document element of the document.
+
+#### Node.getFirstChild()
+
+```java
+Node getFirstChild()
+```
+
+The first child of this node. If there is no such node, this returns null.
+
+#### Node.getLastChild()
+
+```java
+Node getLastChild()
+```
+
+The last child of this node. If there is no such node, this returns null.
+
+#### Node.getNextSibling()
+
+```java
+Node getNextSibling()
+```
+
+The node immediately following this node. If there is no such node, this returns null.
+
+#### Node.getPreviousSibling()
+
+```java
+Node getPreviousSibling()
+```
+
+The node immediately preceding this node. If there is no such node, this returns null. 
+
+#### Node.getAttribute(String attrName)
+
+```java
+String getAttribute(String name)
+```
+
+Retrieves an attribute value by name.
+
+Parameters:
+    name - The name of the attribute to retrieve.
+Returns:
+    The Attr value as a string, or the empty string if that attribute does not have a specified or default value
+    
+The above mentioned methods and interfaces are the most commonly used ones, and we are going to use a application to exemplify their use in real-life scenarios.
+
+## DOM Application
+
+
+
+## References
+<a id="1">[1]</a>  [https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Node.html](https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Node.html) 
+<a id="2">[2]</a>  [https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Element.html](https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Element.html) 
+<a id="3">[3]</a>  [https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Attr.html](https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Attr.html)
+<a id="4">[4]</a>  [https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Text.html](https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Text.html) 
+<a id="5">[5]</a>  [https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html](https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html)
