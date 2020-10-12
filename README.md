@@ -1,6 +1,6 @@
 # JAXB vs DOM
 
-In this example, we try to explain what JAXB and DOM are, what are the main differences between the two libraries, as well as exeplifying through some applications how each of this API's work.
+In this presentation, we try to explain what JAXB and DOM are, what are the main differences between the two libraries, as well as exeplifying through some applications how each of this API's work.
 
 <p>&nbsp;</p>
 
@@ -20,7 +20,7 @@ Jakarta XML Binding (JAXB; formerly Java Architecture for XML Binding) is a soft
 
 #### How to install the plugin?
 
-JAXB is supported only until **Java 8** (including), so in versions 9 and 10 it is deprecated, while in Java 11 JAXB is removed. So if you want to test it out, you can install Java 8 (both java and javac).
+JAXB is supported only until **Java 8** (including), so in versions 9 and 10 it is deprecated, while in Java 11 JAXB is removed. In order to test it, I have used Java 8for compiling and running.
 
 - **java**
 ```shell
@@ -51,7 +51,7 @@ There are 2 programs which provide 'javac'.
 Enter to keep the current selection[+], or type selection number: 
 ```
 
-Also, since I use Java directly from command line (Linux distro Fedora 32), so I simply installed the Maven plugin which supports JAXB:
+Also, since I use Java directly from command line (Linux distro Fedora 32), I simply installed the Maven plugin which supports JAXB:
 
 ```shell
 sudo dnf install jaxb2-maven-plugin
@@ -300,6 +300,10 @@ public class Answer {
 }
 
 ```
+
+### Binding
+
+Binds XML Schema to schema-derived JAXB Java classes, or value classes. Each class provides access to the content via a set of JavaBean-style access methods (that is, get and set). Binding is managed by the JAXB schema compiler. More about data binding and how it works can be found [here](https://docs.oracle.com/cd/E13222_01/wls/docs103/webserv/data_types.html).
 
 ### Marshalling
 
@@ -733,9 +737,42 @@ In order to do this, we create a document builder, then we create the elements a
 
 ### JAXB vs DOM
 
+We have seen in the examples above that JAXB and DOM are libraries which focus on working with XML documents. From now on, we will shift our attention towards what are the differences between the two presented libraries.
+
+#### Higher-level vs lower-level API
+
+Compared to DOM, **JAXB** is a higher-level API which not only parses an XML document for the information, it also directly converts the extracted information **Java objects** through marshalling and un-marshalling [[6]](#6). Theoretically, we could not compare the two since implementations of JAXB will most likely use DOM or SAX API's as the actual parsers of the XML document  [[7]](#7).
+
+#### When to use one, when to use the other
+
+As explained above, the two are somehow corellated, so using one or the other depends a lot on what the goal is.
+
+#### DOM:
+
+- **unknown schema**: there are some cases in which we are given an XML document and we do not have apriori information about it. In this case, DOM could be very helpful for examining this. One could start with the root and then check any element / node / attribure in order to get this information;
+- **unstable XML**: if an XML document is expected to have changes in the future and we don not know which these changes are, so, again, unknown schema, DOM would be more convenient to use.
+
+
+#### JAXB
+
+- **serialisation**: In case you have a Java model and you want to serialise / deserialise (marshall / un-marshall), use JAXB;
+- **create the Java objects hierarchy directly**: With JAXB, you can read an XML Schema and create the whole hierarcy of classes and data structures based on this [[8]](#8). The Java objects will be created in an easier way in the sense that most probably you would need to write less code than trying it with DOM;
+
+I have read a lot of answers to this questions and at the end I have found that most of them resumed to the following schema:
+
+![Figure2: JAXBvsDOM](/home/babycakes/Documents/Master/XML/JAXBvsDOM/JAXB/util/JAXBvsDOM.png  "JAXB vs DOM usage schmema")
+
+Of course, this still varies a lot based on what one wants to achieve by using each of the two API's, but this I found to be the main questions to ask yourself first when wanting to pick between each of the two. Overall, both JAXB and DOM could do the job of handling an XML Schema.
+
+
+
+
 ## References
 <a id="1">[1]</a>  [https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Node.html](https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Node.html) 
 <a id="2">[2]</a>  [https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Element.html](https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Element.html) 
 <a id="3">[3]</a>  [https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Attr.html](https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Attr.html)
 <a id="4">[4]</a>  [https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Text.html](https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Text.html) 
 <a id="5">[5]</a>  [https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html](https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html)
+<a id="6">[6]</a>  [https://stackoverflow.com/questions/7709928/jaxb-vs-dom-and-sax](https://stackoverflow.com/questions/7709928/jaxb-vs-dom-and-sax)
+<a id="7">[7]</a>  [https://stackoverflow.com/questions/9923326/does-jaxb-uses-sax-or-dom-internally](https://stackoverflow.com/questions/9923326/does-jaxb-uses-sax-or-dom-internally)
+<a id="8">[8]</a>  [https://stackoverflow.com/questions/607141/what-is-jaxb-and-why-would-i-use-it](https://stackoverflow.com/questions/607141/what-is-jaxb-and-why-would-i-use-it)
