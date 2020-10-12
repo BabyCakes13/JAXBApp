@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<class>
+     <videogame name="World of Warcraft">
+          <type>mmorpg</type>
+          <year>2004</year>
+          <mode>multi-player</mode>
+     </videogame>
+</class>
