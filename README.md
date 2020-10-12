@@ -538,7 +538,200 @@ The above mentioned methods and interfaces are the most commonly used ones, and 
 
 ## DOM Application
 
+### Parsing XML Document
 
+Using the class **VideogameDOMParser** we are going to parse the **videogames.xml** document which contains information about some videogames such as their name, type, year of apparition and mode of play.
+
+#### videogames.xml
+
+```xml
+<?xml version = "1.0"?>
+<class>
+   <videogame name = "Overwatch">
+      <type>shooter</type>
+      <year>2015</year>
+      <mode>multi-player</mode>
+   </videogame>
+
+   <videogame name = "Skyrim">
+      <type>rpg</type>
+      <year>2011</year>
+      <mode>single-player</mode>
+   </videogame>
+
+   <videogame name = "World of Warcraft">
+      <type>mmorpg</type>
+      <year>2004</year>
+      <mode>multi-layer</mode>
+   </videogame>
+</class>
+```
+For parsing an XML document we need to import the appropriate XML packages, load the XML document using either file or stream and then being extracting the root element, examine the attributes and the sub-elements.
+
+#### VideogameDOMParser.java
+
+```java
+import java.io.File;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+
+public class VideogameDOMParser {
+   public static void main(String[] args) {
+
+      try {
+         File inputFile = new File("videogames.xml");
+
+         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+         Document doc = dBuilder.parse(inputFile);
+         doc.getDocumentElement().normalize();
+
+         System.out.println("Root element:" + doc.getDocumentElement().getNodeName());
+
+         NodeList nList = doc.getElementsByTagName("videogame");
+
+         for (int temp = 0; temp < nList.getLength(); temp++) {
+            Node nNode = nList.item(temp);
+            System.out.println("\nCurrent element:" + nNode.getNodeName());
+
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+               Element eElement = (Element) nNode;
+
+               System.out.println("Name: "
+                  + eElement.getAttribute("name"));
+
+               System.out.println("Type: "
+                  + eElement.getElementsByTagName("type").item(0).getTextContent());
+
+               System.out.println("Year: "
+                  + eElement.getElementsByTagName("year").item(0).getTextContent());
+
+               System.out.println("Mode: "
+                  + eElement.getElementsByTagName("mode").item(0).getTextContent());
+            }
+         }
+      } catch (Exception e) {
+         e.printStackTrace();
+       }}}
+```
+
+In our case, we check the root element and its sub-elements, printing their attributes one by one, which outputs the following result:
+
+```shell
+% javac VideogameDOMParser.java && java VideogameDOMParser
+```
+```shell
+Root element:class
+
+Current element:videogame
+Name: Overwatch
+Type: shooter
+Year: 2015
+Mode: multi-player
+
+Current element:videogame
+Name: Skyrim
+Type: rpg
+Year: 2011
+Mode: single-player
+
+Current element:videogame
+Name: World of Warcraft
+Type: mmorpg
+Year: 2004
+Mode: multi-layer
+```
+
+### Create XML Document
+
+As we have seen parsing an XML document, we will now **create** an XML document using the **VideogameDOMCreate** class, as follows:
+
+#### VideogameDOMCreate
+
+```java
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import java.io.File;
+
+public class VideogameDOMCreate {
+
+   public static void main(String argv[]) {
+
+      try {
+         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+         Document document = dBuilder.newDocument();
+
+         Element rootElement = document.createElement("class");
+         document.appendChild(rootElement);
+
+         Element videogame = document.createElement("videogame");
+         rootElement.appendChild(videogame);
+
+         Attr attr = document.createAttribute("name");
+         attr.setValue("World of Warcraft");
+         videogame.setAttributeNode(attr);
+
+         Element type = document.createElement("type");
+         type.appendChild(document.createTextNode("mmorpg"));
+         videogame.appendChild(type);
+
+         Element year = document.createElement("year");
+         year.appendChild(document.createTextNode("2004"));
+         videogame.appendChild(year);
+
+         Element mode = document.createElement("mode");
+         mode.appendChild(document.createTextNode("multi-player"));
+         videogame.appendChild(mode);
+
+         TransformerFactory transformerFactory = TransformerFactory.newInstance();
+         transformerFactory.setAttribute("indent-number", new Integer(2));
+
+         Transformer transformer = transformerFactory.newTransformer();
+         transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "5");
+         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+         DOMSource source = new DOMSource(document);
+         StreamResult result = new StreamResult(new File("generated_videogames.xml"));
+         transformer.transform(source, result);
+
+      } catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+}
+```
+
+In order to do this, we create a document builder, then we create the elements and attributes we want to have in the generated XML. We link them together and we transform the document through DOM to an XML document. The result can be found in **generated_videogames.xml**. Only one entry was generated, since this was only done for showing what DOM can do, so we will not have all the entries we had in the videogames.xml file.
+
+```shell
+% javac VideogameDOMCreate.java && java VideogameDOMCreate && cat generated_videogames.xml
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<class>
+     <videogame name="World of Warcraft">
+          <type>mmorpg</type>
+          <year>2004</year>
+          <mode>multi-player</mode>
+     </videogame>
+</class>
+```
+
+### JAXB vs DOM
 
 ## References
 <a id="1">[1]</a>  [https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Node.html](https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Node.html) 
